@@ -12,7 +12,7 @@ const Form = ({label, type, hint, error_hint, defaultValue}) => {
           {hint} 
         </FormControl.HelperText>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {error_hint}
+          {error_hint} 
         </FormControl.ErrorMessage>
       </Stack>
     </FormControl>
