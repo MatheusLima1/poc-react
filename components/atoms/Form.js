@@ -9,7 +9,7 @@ const Form = ({label, type, hint, error_hint, defaultValue}) => {
         <FormControl.Label>{label}</FormControl.Label>
         <Input type={type ? type : null} defaultValue={defaultValue}/>
         <FormControl.HelperText>
-          {hint}
+          {hint} 
         </FormControl.HelperText>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           {error_hint}
