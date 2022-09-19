@@ -22,6 +22,10 @@ const Home = () => {
   }, [])
 
   function renderMomentItem(itemData) {
+    let imageUrl = itemData.image ? itemData.image[0] : ""
+    
+    if(imageUrl === "")
+      return
 
     return (
       <Box>
