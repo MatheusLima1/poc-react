@@ -1,20 +1,22 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { AspectRatio, Avatar, Box, Center, Divider, IconButton, Image, VStack, ZStack } from 'native-base'
+import { Box, Center,VStack } from 'native-base'
 import BoxedImage from '../atoms/BoxedImage'
 import TagGroup from '../molecules/moment_item/TagGroup'
 import MomentHeader from '../molecules/moment_item/MomentHeader'
 import MomentFooter from '../molecules/moment_item/MomentFooter'
 
 
-const TaggedImage = ({ ratio, uri }) => {
+const TaggedImage = ({ moment }) => {
+    let imageUrl = moment.image ? moment.image[0] : ""
+
     return (
-        <Box rounded="lg" overflow="hidden" borderColor="coolGray.200" background="white" borderWidth="1" margin={5}>
+        <Box rounded="lg" overflow="hidden" borderColor="coolGray.200" background="white" borderWidth="1" margin={2} maxWidth={300} maxHeight={300}>
             <Center>
                 <VStack>
-                    <MomentHeader />
-                    {imageWithTags(ratio, uri)}
-                    <MomentFooter />
+                    <MomentHeader userName={moment.authorName} />
+                    {imageWithTags(16/9, imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png")}
+                    <MomentFooter title={moment.title} description={moment.description}/>
                 </VStack>
             </Center>
         </Box>
