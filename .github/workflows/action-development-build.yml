@@ -32,4 +32,4 @@ jobs:
       - name: Build on EAS dev
         run: eas build -p android --profile development
       - name:  Publish update 
-        run: eas update --auto
+        run: eas update --branch ${{ github.head_ref || github.ref_name }}
