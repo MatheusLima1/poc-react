@@ -27,6 +27,8 @@ jobs:
         run: npm install
       - name: Run Unit Tests
         run: npm test  
+      - name: Login into Expo account
+        run: expo login -u ${{ secrets.EXPO_USER }} -p ${{ secrets.EXPO_PASSWORD }}
       - name: Build on EAS dev
         run: eas build -p android --profile development
       - name:  Publish update 
