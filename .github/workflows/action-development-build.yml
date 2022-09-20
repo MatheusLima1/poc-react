@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Branch name
-        run: echo running on branch ${{ github.head_ref }}
+        run: echo running on branch ${{ github.head_ref || github.ref_name }}
       - name: Run Unit Tests
         run: npm test  
       - name: Build on EAS dev
