@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import StaggerOptions from '../components/organism/StaggerOptions'
 import { Box, Center, FlatList, ScrollView, } from 'native-base'
