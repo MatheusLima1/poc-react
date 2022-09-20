@@ -27,6 +27,8 @@ jobs:
         run: npm install
       - name: Branch name
         run: echo running on branch ${{ github.head_ref || github.ref_name }}
+      - name: Commit message
+        run: echo commit message ${{ github.event.head_commit.message }}
       - name: Run Unit Tests
         run: npm test  
       - name: Build on EAS dev
