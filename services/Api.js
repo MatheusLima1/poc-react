@@ -43,3 +43,5 @@ export function convertDataIntoObject(m) {
     "classes": m.classrooms
   };
 }
+
+export const multiply = (a, b) => a * b;
