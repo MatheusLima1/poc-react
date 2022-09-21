@@ -11,7 +11,7 @@ const Home = () => {
     async function getMomentsAsync() {
       try {
         const moments = await getMoments()
-        setFetchedMoments(moments)
+        setFetchedMoments(moments) 
       } catch (error) {
         setFetchedMoments(null)
       }
