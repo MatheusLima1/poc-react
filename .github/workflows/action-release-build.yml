@@ -32,4 +32,6 @@ jobs:
       - name: Build on EAS production
         run: eas build -p android --profile production
       - name:  Publish update 
-        run: eas update --auto
+        run: eas update --branch ${{ github.head_ref || github.ref_name }} --message "updating branch"
+      - name: Publish on Plat Store
+        run: eas build -p android --auto-submit  

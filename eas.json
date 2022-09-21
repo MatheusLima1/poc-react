@@ -3,7 +3,7 @@
     "development": {
       "releaseChannel": "development",
       "android": {
-        "gradleCommand": ":app:assembleDebug"
+        "buildType": "app-bundle"
       },
       "ios": {
         "buildConfiguration": "Debug"
@@ -12,13 +12,13 @@
     "preview": {
       "releaseChannel": "release",
       "android": {
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:bundleRelease"
       }
     },
     "production": {
       "releaseChannel": "production",
       "android": {
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:bundleRelease"
       }
     }
   }
