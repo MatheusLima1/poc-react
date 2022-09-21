@@ -2,8 +2,6 @@
   "build": {
     "development": {
       "releaseChannel": "development",
-      "distribution": "internal",
-      "developmentClient": true,
       "android": {
         "gradleCommand": ":app:assembleDebug"
       },
@@ -14,8 +12,7 @@
     "preview": {
       "releaseChannel": "release",
       "android": {
-        "gradleCommand": ":app:assembleRelease",
-        "distribution": "internal"
+        "gradleCommand": ":app:assembleRelease"
       }
     },
     "production": {
