@@ -6,7 +6,7 @@ import { getMoments } from '../services/Api';
 
 const Home = () => {
   const [fetchedMoments, setFetchedMoments] = useState([])
-
+//coment only to commit
   useEffect(() => {
     async function getMomentsAsync() {
       try {
