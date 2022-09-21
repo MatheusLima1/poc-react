@@ -16,9 +16,18 @@
       }
     },
     "production": {
-      "releaseChannel": "production",
       "android": {
+        "releaseChannel": "master",
         "gradleCommand": ":app:bundleRelease"
+      }
+    }
+  },
+  "submit":{
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "keys/service_account.json",
+        "releaseStatus": "draft",
+        "track": "internal"
       }
     }
   }
