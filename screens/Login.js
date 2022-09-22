@@ -17,7 +17,7 @@ const Login = ({ navigation }) => {
                     <Image source={{
                         uri: "https://wallpaperaccess.com/full/317501.jpg"
                     }
-                    } size={150} borderRadius={100} />
+                    } size={150} borderRadius={100} alt="image"/>
                 </Center>
                 <Center>
                     <Form
