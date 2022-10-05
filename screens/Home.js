@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Camera, CameraType } from 'expo-camera';
 import StaggerOptions from '../components/organism/StaggerOptions'
-import { Box, Center, FlatList, ScrollView, } from 'native-base'
+import { Box, Center, ScrollView, } from 'native-base'
 import TaggedImage from '../components/organism/TaggedImage';
-import { getMoments } from '../services/Api';
-import { Pressable } from 'react-native';
+import {  getQuestions } from '../services/Api';
 
 const Home = () => {
   const [fetchedMoments, setFetchedMoments] = useState([])
@@ -20,7 +19,7 @@ const Home = () => {
 
     async function getMomentsAsync() {
       try {
-        const moments = await getMoments()
+        const moments = await getQuestions()
         setFetchedMoments(moments)
       } catch (error) {
         setFetchedMoments(null)
@@ -40,7 +39,6 @@ const Home = () => {
   }
 
   function toggleCameraType() {
-    console.log("Clicked buttom camera")
     setType((current) => (
       current === CameraType.back ? CameraType.front : CameraType.back
     ));
@@ -48,7 +46,7 @@ const Home = () => {
 
   function renderMomentItem(itemData) {
     let imageUrl = itemData.image ? itemData.image[0] : ""
-
+    console.log(imageUrl)
     if (imageUrl === "")
       return
 

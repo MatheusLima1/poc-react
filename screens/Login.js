@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Center,
     Button,
@@ -8,8 +8,34 @@ import {
     Image
 } from "native-base";
 import Form from "../components/atoms/Form";
+import { login } from '../services/Api';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
+    const [getUserData, setUserData] = useState("")
+
+    async function loginMoments(){
+        console.log("clicked")
+        async function loginAsync() {
+            try {
+                const userData = await axios.post('https://private-28019f-mockendpointsgen2cb.apiary-mock.com/login', {
+                    login: "matheusl@curacubby.com", password: "dhasdajsdhj"
+                }).then(function (response){
+                    setUserData(userData)
+                    console.log(response)
+                    navigation.navigate("Bottom")
+                }).catch(function (error){
+                    console.log(error);
+                })
+
+            } catch (error) {
+                setUserData(null)
+            }
+        
+            }
+           await loginAsync();
+    }
+
     return (
         <Box safeAreaTop="5">
             <VStack space="5">
@@ -37,8 +63,8 @@ const Login = ({ navigation }) => {
                         <Button
                             minW={100}
                             colorScheme="primary"
-                            onPress={() => {
-                                navigation.navigate("Bottom")
+                            onPress={async () => {
+                                loginMoments()          
                             }}>
                             Login
                         </Button>

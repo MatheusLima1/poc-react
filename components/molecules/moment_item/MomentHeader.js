@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { width } from '../../../utils/DimensionScreen';
 
 const MomentHeader = ({userName, imageSrc, momentIsPublished}) => {
-    console.log(userName)
     return (
         <Box flexDirection="row" flex={1}>
             <Avatar marginLeft={5} marginTop={3} marginBottom={1} size={width * 0.06} source={{

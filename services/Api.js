@@ -1,29 +1,36 @@
 import axios from 'axios';
 
-const baseUrlCore = 'https://moments-core-dev.herokuapp.com/api/v1/';
+const baseUrlCore = 'https://private-28019f-mockendpointsgen2cb.apiary-mock.com/';
 const baseUrlAws = 'https://slb43g79ng.execute-api.us-west-2.amazonaws.com/development/';
 const momentEndpoint = 'moments'
-
-const instanceCore = axios.create({
-  baseURL: baseUrlCore,
-  timeout: 1000,
-});
+const loginEndpoint = 'login'
 
 const instanceAws = axios.create({
   baseURL: baseUrlAws,
   timeout: 900000,
-  headers: { 'Authorization': 'eyJraWQiOiJHTVVwTW82SDVmSFFXOXQydEllajk4dnV1TFVlQ2JKckF3Z1k0eVY2MnRFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YmNhYmY1Mi0zMDliLTRhYzctODE1Ni00ZGEzMjkzYmE2MjEiLCJhdWQiOiIyMjdwbWc5cWlpbm43aXRwdGsyZzVsMzQ2dCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJldmVudF9pZCI6IjMyMTFmYjdmLTQyNGItNGViNC04N2U4LWI2MzQ4YWVjZTllZCIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjYzOTU3NTE2LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9idW5sRzdYT2siLCJjb2duaXRvOnVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NjQwNDM5MTYsImlhdCI6MTY2Mzk1NzUxNiwiZW1haWwiOiJhbGV4ZWkudXNrb3ZAYWRhcHRpdmVjYXN0LmNvbSJ9.qp4KAjuvS_oFTt-WacUgOP_ZGxKOBQvrz2hVPjo_3XlkHfTlLC2e6fLsoLLy-LP-G760Ra97Oa21-f0wJcEbDIhJD1sZfDdiJgfN6rn1wPiaKBD6n59n35nFQ03NAikzYgVohDtOLOOBw58xu6FpeilQZDDENXm7s280-fAs-Ijq7u_fLZaugtmYzbDIIpjN7pgWTmajFE5o0R5C7iXeSPrracHd-cUIXQ7F0OwRf0nlJJceW7u5clghwvoLRAl86-HqPO7lh9IpuLmkz_Shw_TLePIyjpMyo-UTkB9lkHyDOZF9Cq4Vdwig7ciDIDHPC-VbILXiwNZigB8-BJRWZg' }
+  headers: { 'Authorization': 'eyJraWQiOiJHTVVwTW82SDVmSFFXOXQydEllajk4dnV1TFVlQ2JKckF3Z1k0eVY2MnRFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI5YmNhYmY1Mi0zMDliLTRhYzctODE1Ni00ZGEzMjkzYmE2MjEiLCJhdWQiOiIyMjdwbWc5cWlpbm43aXRwdGsyZzVsMzQ2dCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJldmVudF9pZCI6IjE4ZDliN2IxLTFiYTYtNDc2Mi05N2NlLTc4NjNhODNkYTFmNCIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNjY0OTA1ODUzLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9idW5sRzdYT2siLCJjb2duaXRvOnVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2NjQ5OTIyNTMsImlhdCI6MTY2NDkwNTg1MywiZW1haWwiOiJhbGV4ZWkudXNrb3ZAYWRhcHRpdmVjYXN0LmNvbSJ9.VCv1y22-bx2l9hdt2E1baIUh4g00ciffD5MK2OY2HARifXzCbK8n7nreGs4vQI-7iak_NlltUTIhhBj5pNazZQiGLGU636IyIFxCY93rQrqS7wcR2HtdDiWkzGHpSyAo6DS8kZy1d29Y9_sWyqLmp4aaDcVkI41aksJMEU0heHh4rjTQuFgzGVKmrCpE5mZe1_dbZXA67HukGNNyueAFTl5PqHvigfi8JcWTE1wIY6jhBMoJ8Y_LtQ2xkVvQxqkkSQnVLpcEi73MTj4PgpQMbB0eVWuf88BnlE7Z_kOLXbFonKUaxHCfRGFeY4KuPRtCCuYvqeSIKv4Z8KIASodQ7w' }
 });
 
-export async function getMoments(config) {
+export async function login(config, {data}) {
+  try {
+    const response = await instanceAws
+      .post(baseUrlCore + login, data, config)
+
+      return convertDataIntoUserDataObject(response)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getQuestions(config) {
   try {
     const moments = []
     const response = await instanceAws
-      .get(baseUrlAws + momentEndpoint + "?schoolsList=78bc784c-bc8e-41da-b0d7-abc0c6b71343%2C3ca13c51-08c5-44ec-b972-c7ae53ed08f2%2Cde3ca461-e7fb-457e-b059-18f11f850c72%2Ca539f93f-f698-4975-b46b-07dc76d60f3d&startTime=1656990000&endTime=1658076400&mediaTypesList=photo%2Cvideo%2Ctext%2Cgeneric%2Cplay%2Cclass%2Cnap%2Cnote%2Clunch%2Cbreak", config)
+      .get(baseUrlCore + momentEndpoint, config)
+   
+      response.data.forEach(m => {
 
-    response.data.forEach(m => {
-
-      const singleMoment = convertDataIntoObject(m)
+      const singleMoment = convertDataIntoMomentObject(m)
       
       moments.push(singleMoment)
     })
@@ -33,7 +40,24 @@ export async function getMoments(config) {
   }
 }
 
-export function convertDataIntoObject(m) {
+export function convertDataIntoUserDataObject(m) {
+  console.log("UserData"+ m)
+  return {
+    "userId": m.userId,
+    "firstName": m.firstName,
+    "lastName": m.lastName,
+    "email": m.email,
+    "phone": m.phone,
+    "schools": m.schools,
+    "classrooms": m.classrooms,
+    "restrictions": m.restrictions,
+    "token": m.token,
+    "expiresAt": m.expiresAt
+
+  };
+}
+
+export function convertDataIntoMomentObject(m) {
   return {
     "id": m.momentId,
     "authorName": m.authorName,
