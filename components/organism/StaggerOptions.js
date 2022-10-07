@@ -11,7 +11,7 @@ const StaggerOptions = ({onClickCamera}) => {
         isOpen,
         onToggle
     } = useDisclose();
-    return <Box alignItems="flex-end" flex={1} position="absolute" bottom="5" right="5">
+    return <Box alignItems="flex-end" flex={1} position="absolute" bottom="12" right="5">
         <Box alignItems="flex-end" minH={height * 0.2}>
             <Stagger visible={isOpen} initial={{
                 opacity: 0,

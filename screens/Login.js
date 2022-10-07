@@ -8,33 +8,51 @@ import {
     Image
 } from "native-base";
 import Form from "../components/atoms/Form";
-import { login } from '../services/Api';
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { addUserData } from '../redux/userData/userData';
 
 const Login = ({ navigation }) => {
-    const [getUserData, setUserData] = useState("")
+    const userData = useSelector((state) => state.userData)
+    const dispatch = useDispatch()
 
     async function loginMoments(){
         console.log("clicked")
         async function loginAsync() {
             try {
-                const userData = await axios.post('https://private-28019f-mockendpointsgen2cb.apiary-mock.com/login', {
+                await axios.post('https://private-28019f-mockendpointsgen2cb.apiary-mock.com/login', {
                     login: "matheusl@curacubby.com", password: "dhasdajsdhj"
                 }).then(function (response){
-                    setUserData(userData)
-                    console.log(response)
+                    let convertedData = convertUserDataIntoObject(response.data)
+                    userData.userId.includes(convertedData)
+                    dispatch(addUserData(convertedData))
                     navigation.navigate("Bottom")
                 }).catch(function (error){
                     console.log(error);
                 })
-
             } catch (error) {
-                setUserData(null)
+                console.log(error);
             }
         
             }
            await loginAsync();
     }
+
+    function convertUserDataIntoObject(m) {
+        return {
+          "userId": m.userId,
+          "firstName": m.firstName,
+          "lastName": m.lastName,
+          "email": m.email,
+          "phone": m.phone,
+          "roles": m.roles,
+          "schools": m.schools,
+          "classrooms": m.classrooms,
+          "restrictions": m.restrictions,
+          "token": m.token,
+          "expiresAt": m.expiresAt
+        };
+      }
 
     return (
         <Box safeAreaTop="5">
