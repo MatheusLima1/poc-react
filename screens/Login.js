@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserData } from '../redux/userData/userData';
 
 const Login = ({ navigation }) => {
-    const userData = useSelector((state) => state.userData)
     const dispatch = useDispatch()
 
     async function loginMoments(){
@@ -24,7 +23,6 @@ const Login = ({ navigation }) => {
                     login: "matheusl@curacubby.com", password: "dhasdajsdhj"
                 }).then(function (response){
                     let convertedData = convertUserDataIntoObject(response.data)
-                    userData.userId.includes(convertedData)
                     dispatch(addUserData(convertedData))
                     navigation.navigate("Bottom")
                 }).catch(function (error){

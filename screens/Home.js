@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { Camera, CameraType } from 'expo-camera';
 import StaggerOptions from '../components/organism/StaggerOptions'
-import { Box, Center, CheckIcon, ScrollView, Select, } from 'native-base'
+import { Box, Center, CheckIcon, ScrollView, Select, Text, } from 'native-base'
 import TaggedImage from '../components/organism/TaggedImage';
 import { getQuestions } from '../services/Api';
 import { useDispatch, useSelector } from "react-redux";
+import * as Location from 'expo-location';
 
 const Home = () => {
   const [fetchedMoments, setFetchedMoments] = useState([])
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = useState(null);
   const [service, setService] = React.useState("ux");
-  const userData = useSelector((state) => state.userData.userId)
+  const userData = useSelector((state) => state.userData.user)
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  console.log("Home: " + userData[0].schools[0].schoolName)
+  console.log("Home: " + userData.schools[0].schoolName)
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       requestPermission(status === "granted")
+    })();
+
+    (async () => {
+      
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
     })();
 
     async function getMomentsAsync() {
@@ -34,6 +49,13 @@ const Home = () => {
 
   }, [])
 
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
   if (permission === null) {
     return <Box />
   }
@@ -42,8 +64,7 @@ const Home = () => {
     return <Text> Access Denied</Text>
   }
 
-  function schoolSelector(schools) {
-    console.log("When enter" + schools)
+  function schoolSelector() {
     return <Box maxW="300">
       <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" _selectedItem={{
         bg: "teal.600",
@@ -87,16 +108,19 @@ const Home = () => {
     )
   }
 
+  console.log(location)
+
   return (
     <Box flex={1}>
       <Center>
         <Camera type={type} style={{ flex: 1 }} />
         {
-          schoolSelector(userData[0].schools)
+          schoolSelector(userData.schools)
         }
         {
           campusSelector()
         }
+        {location == null ? errorMsg : 'Current Location: ' + JSON.stringify(location)}
         <ScrollView>
           {fetchedMoments.map((moment) => {
             return (renderMomentItem(moment))
