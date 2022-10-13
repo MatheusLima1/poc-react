@@ -12,6 +12,8 @@ import Home from "./screens/Home";
 import Favorites from "./screens/Favorites";
 import Chat from "./screens/Chat";
 import Profile from "./screens/Profile";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -64,6 +66,7 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <StatusBar mode={"light"} />
+      <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={Login} />
@@ -76,6 +79,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </Provider>
     </NativeBaseProvider>
   );
 }

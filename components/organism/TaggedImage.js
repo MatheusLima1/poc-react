@@ -5,13 +5,14 @@ import BoxedImage from '../atoms/BoxedImage'
 import TagGroup from '../molecules/moment_item/TagGroup'
 import MomentHeader from '../molecules/moment_item/MomentHeader'
 import MomentFooter from '../molecules/moment_item/MomentFooter'
+import { height, width } from '../../utils/DimensionScreen'
 
 
 const TaggedImage = ({ moment }) => {
     let imageUrl = moment.image ? moment.image[0] : ""
 
     return (
-        <Box rounded="lg" overflow="hidden" borderColor="coolGray.200" background="white" borderWidth="1" margin={2} maxWidth={300} maxHeight={300}>
+        <Box rounded="lg" overflow="hidden" borderColor="coolGray.200" background="white" borderWidth="1" margin={2} maxWidth={width * 0.8} maxHeight={height * 0.4}>
             <Center>
                 <VStack>
                     <MomentHeader userName={moment.authorName} />

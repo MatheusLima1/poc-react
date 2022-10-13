@@ -1,24 +1,31 @@
 {
   "build": {
     "development": {
-      "releaseChannel": "development",
       "android": {
-        "gradleCommand": ":app:assembleDebug"
+        "buildType": "apk"
       },
       "ios": {
         "buildConfiguration": "Debug"
       }
     },
     "preview": {
-      "releaseChannel": "release",
+      "releaseChannel": "development",
       "android": {
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:bundleRelease"
       }
     },
     "production": {
-      "releaseChannel": "production",
       "android": {
-        "gradleCommand": ":app:assembleRelease"
+        "releaseChannel": "master",
+        "gradleCommand": ":app:bundleRelease"
+      }
+    }
+  },
+  "submit":{
+    "production": {
+      "android": {
+        "releaseStatus": "draft",
+        "track": "internal"
       }
     }
   }
