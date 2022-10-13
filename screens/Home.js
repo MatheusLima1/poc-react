@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Camera, CameraType } from 'expo-camera';
 import StaggerOptions from '../components/organism/StaggerOptions'
-import { Box, Center, CheckIcon, ScrollView, Select, Text, } from 'native-base'
+import { Alert, Box, Button, Center, CheckIcon, ScrollView, Select, Text, } from 'native-base'
 import TaggedImage from '../components/organism/TaggedImage';
 import { getQuestions } from '../services/Api';
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +66,7 @@ const Home = () => {
 
   function schoolSelector() {
     return <Box maxW="300">
-      <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" _selectedItem={{
+      <Select selectedValue={service} minWidth="150" accessibilityLabel="Choose Service" _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />
       }} mt={1} onValueChange={itemValue => setService(itemValue)}>
@@ -78,7 +78,7 @@ const Home = () => {
 
   function campusSelector() {
     return <Box maxW="300" marginBottom={1}>
-      <Select selectedValue={service} minWidth="200" accessibilityLabel="Choose Service" _selectedItem={{
+      <Select selectedValue={service} minWidth="150" accessibilityLabel="Choose Service" _selectedItem={{
         bg: "teal.600",
         endIcon: <CheckIcon size="5" />
       }} mt={1} onValueChange={itemValue => setService(itemValue)}>
@@ -86,6 +86,21 @@ const Home = () => {
         <Select.Item label="Campus Two" value="web" />
       </Select>
     </Box>
+  }
+
+  function showCurrentLocation(){
+    <Alert w="100%" variant={key} colorScheme="success" status="success">
+                <VStack space={2} flexShrink={1} w="100%">
+                  <HStack flexShrink={1} space={2} alignItems="center" justifyContent="space-between">
+                    <HStack space={2} flexShrink={1} alignItems="center">
+                      <Alert.Icon />
+                      <Text color={getTextColor(key)}>
+                        Selection successfully moved!
+                      </Text>
+                    </HStack>
+                  </HStack>
+                </VStack>
+              </Alert>
   }
 
   function toggleCameraType() {
@@ -120,14 +135,14 @@ const Home = () => {
         {
           campusSelector()
         }
-        {location == null ? errorMsg : 'Current Location: ' + JSON.stringify(location)}
+        {/* {location == null ? errorMsg : 'Current Location: ' + JSON.stringify(location)} */}
         <ScrollView>
           {fetchedMoments.map((moment) => {
             return (renderMomentItem(moment))
           })}
         </ScrollView>
       </Center>
-      <Box flex={1} alignItems="flex-end">
+      <Box flex={1} >
         <StaggerOptions onClickCamera={toggleCameraType} />
       </Box>
     </Box>
