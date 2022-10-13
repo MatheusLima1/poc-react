@@ -10,7 +10,7 @@
       }
     },
     "preview": {
-      "releaseChannel": "release",
+      "releaseChannel": "development",
       "android": {
         "gradleCommand": ":app:bundleRelease"
       }
